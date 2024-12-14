@@ -1,0 +1,8 @@
+.idea/
+.zed/
+.vscode/
+venv/
+
+*.zip
+*.csv
+*.npy
