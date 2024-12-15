@@ -66,7 +66,7 @@ The cleaned dataset will have the following structure:
 ### Sleep
 
 ```
-0 - long
-1 - medium
-2 - short
+0 - long sleepers
+1 - medium sleepers
+2 - short sleepers
 ```
