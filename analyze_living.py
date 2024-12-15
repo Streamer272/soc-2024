@@ -3,7 +3,7 @@ import numpy as np
 from analyze import analyze
 
 dataset = np.load("clean.npy")
-print(f"dataset shape: {dataset.shape}, analyzing column 7 (living)")
+print(f"dataset shape: {dataset.shape}, analyzing column 8 (living)")
 print("\t0 - with family")
 print("\t1 - with family member")
 print("\t2 - alone / roomates")
@@ -13,7 +13,7 @@ print("")
 
 
 def analyze_living(name: str, col: np.ndarray):
-    occupation_col = dataset[:, 7]
+    occupation_col = dataset[:, 8]
     analyze(name, [
         col[occupation_col == 0],
         col[occupation_col == 1],

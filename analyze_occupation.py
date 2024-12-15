@@ -3,7 +3,7 @@ import numpy as np
 from analyze import analyze
 
 dataset = np.load("clean.npy")
-print(f"dataset shape: {dataset.shape}, analyzing column 6 (occupation)")
+print(f"dataset shape: {dataset.shape}, analyzing column 7 (occupation)")
 print("\t0 - work hours / week >= 10")
 print("\t1 - work hours / week < 10")
 print("\t2 - sport")
@@ -14,7 +14,7 @@ print("")
 
 
 def analyze_occupation(name: str, col: np.ndarray):
-    occupation_col = dataset[:, 6]
+    occupation_col = dataset[:, 7]
     analyze(name, [
         col[occupation_col == 0],
         col[occupation_col == 1],
