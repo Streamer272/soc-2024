@@ -112,11 +112,11 @@ def parse_commute(txt: str) -> int:
 
 def parse_sleep(txt: str) -> int:
     match txt:
-        case "9 hodín a viac":
+        case "6 hodín a menej":
             return 0
         case "7 až 9 hodín":
             return 1
-        case "6 hodín a menej":
+        case "9 hodín a viac":
             return 2
         case _:
             print("ERROR: Coudln't determine sleep")
@@ -132,7 +132,7 @@ def parse_absence(txt: str) -> float:
             txt = input("Please enter fixed value: ")
 
 
-for i in range(1, len(df)):
+for i in range(len(arr)):
     row = arr[i]
     current = []
 
