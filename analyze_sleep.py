@@ -3,7 +3,7 @@ import numpy as np
 from analyze import analyze
 
 dataset = np.load("clean.npy")
-print(f"dataset shape: {dataset.shape}, analyzing column 10 (sleep)")
+print(f"dataset shape: {dataset.shape}; analyzing column 10 (sleep)")
 print("\t0 - short sleepers")
 print("\t1 - medium sleepers")
 print("\t2 - long sleepers")

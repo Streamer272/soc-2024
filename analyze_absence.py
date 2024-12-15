@@ -2,7 +2,7 @@ import numpy as np
 from scipy.stats import kendalltau
 
 dataset = np.load("clean.npy")
-print(f"dataset shape: {dataset.shape}, analyzing column 11 (absence)")
+print(f"dataset shape: {dataset.shape}; analyzing column 11 (absence)")
 print("\tinteger value")
 print("")
 

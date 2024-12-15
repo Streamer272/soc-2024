@@ -3,7 +3,7 @@ import numpy as np
 from analyze import analyze
 
 dataset = np.load("clean.npy")
-print(f"dataset shape: {dataset.shape}, analyzing column 8 (living)")
+print(f"dataset shape: {dataset.shape}; analyzing column 8 (living)")
 print("\t0 - with family")
 print("\t1 - with family member")
 print("\t2 - alone / roomates")

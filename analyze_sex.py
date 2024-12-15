@@ -3,7 +3,7 @@ import numpy as np
 from analyze import analyze
 
 dataset = np.load("clean.npy")
-print(f"dataset shape: {dataset.shape}, analyzing column 1 (sex)")
+print(f"dataset shape: {dataset.shape}; analyzing column 1 (sex)")
 print("\t0 - female")
 print("\t1 - male")
 print("")

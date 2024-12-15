@@ -3,7 +3,7 @@ import numpy as np
 from analyze import analyze
 
 dataset = np.load("clean.npy")
-print(f"dataset shape: {dataset.shape}, analyzing column 6 (ses)")
+print(f"dataset shape: {dataset.shape}; analyzing column 6 (ses)")
 print("\t0 - lower class")
 print("\t1 - middle class")
 print("\t2 - upper class")

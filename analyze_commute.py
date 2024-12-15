@@ -3,7 +3,7 @@ import numpy as np
 from analyze import analyze
 
 dataset = np.load("clean.npy")
-print(f"dataset shape: {dataset.shape}, analyzing column 9 (commute)")
+print(f"dataset shape: {dataset.shape}; analyzing column 9 (commute)")
 print("\t0 - dorms")
 print("\t1 - <= 15m")
 print("\t2 - <= 30m")
