@@ -1,7 +1,9 @@
 .idea/
 .zed/
 .vscode/
+
 venv/
+__pycache__/
 
 *.zip
 *.csv

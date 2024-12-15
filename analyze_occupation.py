@@ -3,7 +3,7 @@ import numpy as np
 from analyze import analyze
 
 dataset = np.load("clean.npy")
-print(f"dataset shape: {dataset.shape}, analyzing column 6 (sex)")
+print(f"dataset shape: {dataset.shape}, analyzing column 6 (occupation)")
 print("\t0 - work hours / week >= 10")
 print("\t1 - work hours / week < 10")
 print("\t2 - sport")
