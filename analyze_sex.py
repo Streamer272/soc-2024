@@ -17,7 +17,7 @@ def analyze_sex(name: str, col: np.ndarray):
     ])
 
 
-analyze("gpa", dataset[:, 2])
-analyze("math", dataset[:, 3])
-analyze("slovak", dataset[:, 4])
-analyze("english", dataset[:, 5])
+analyze_sex("gpa", dataset[:, 2])
+analyze_sex("math", dataset[:, 3])
+analyze_sex("slovak", dataset[:, 4])
+analyze_sex("english", dataset[:, 5])
