@@ -155,9 +155,11 @@ for i in range(1, len(df)):
     current.append(math)
     current.append(slovak)
     current.append(english)
+    current.append(parse_ses(ses))
     current.append(parse_occupation(occupation))
     current.append(parse_living(living))
     current.append(parse_commute(commute))
+    current.append(parse_sleep(sleep))
     current.append(parse_absence(absence))
 
     clean.append(np.array(current))

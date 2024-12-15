@@ -10,16 +10,26 @@ The cleaned dataset will have the following structure:
 | 3     | Math       | int   | [1-5] |
 | 4     | Slovak     | int   | [1-5] |
 | 5     | English    | int   | [1-5] |
-| 6     | Occupation | enum  | [0-5] |
-| 7     | Living     | enum  | [0-4] |
-| 8     | Commute    | enum  | [0-4] |
-| 9     | Absence    | int   | -     |
+| 6     | SES        | enum  | [0-2] |
+| 7     | Occupation | enum  | [0-5] |
+| 8     | Living     | enum  | [0-4] |
+| 9     | Commute    | enum  | [0-4] |
+| 10    | Sleep      | enum  | [0-2] |
+| 11    | Absence    | int   | -     |
 
 ### Sex
 
 ```
 0 - zena
 1 - muz
+```
+
+### SES
+
+```
+0 - lower class
+1 - middle class
+2 - upper class
 ```
 
 ### Occupation
@@ -51,4 +61,12 @@ The cleaned dataset will have the following structure:
 2 - <= 30m
 3 - <= 1h
 4 - > 1h
+```
+
+### Sleep
+
+```
+0 - long
+1 - medium
+2 - short
 ```
