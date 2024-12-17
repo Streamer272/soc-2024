@@ -42,7 +42,15 @@ def parse_gpa(txt: str) -> float:
     if is_eu:
         txt = txt.replace(",", ".")
 
-    return float(txt)
+    num = float(txt)
+    while num >= 5:
+        fixed = input(f"Pleas enter fixed value for '{num}': ")
+        try:
+            num = float(fixed)
+        except ValueError:
+            pass
+
+    return num
 
 
 def parse_ses(txt: str) -> int:
