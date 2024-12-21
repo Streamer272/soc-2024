@@ -35,6 +35,17 @@ def plot_pie(data, labels, title, explode=None):
     plt.show()
 
 
+def plot_hist(data, title, xlabel, ylabel):
+    plt.figure(figsize=(8, 6))
+    plt.hist(data, 25, edgecolor="black")
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+
+    plt.tight_layout()
+    plt.show()
+
+
 grade = dataset[:, 0]
 grade_dist = [
     len(grade[grade == 1]) / len(grade),
@@ -74,7 +85,9 @@ if graph:
 print("--- GPA ---")
 print("n/a")
 print("")
-# TODO: graph numerical
+
+if graph:
+    plot_hist(dataset[:, 2], "Distribúcia piemernu známok", "Piemerná známka", "Počet študentov/tiek")
 
 math = dataset[:, 3]
 math_dist = [
@@ -231,4 +244,6 @@ if graph:
 print("--- ABSENCE ---")
 print("n/a")
 print("")
-# TODO: graph numerical
+
+if graph:
+    plot_hist(dataset[:, 11], "Distribúcia absencií", "Počet neprítomných hodín", "Počet študentov/tiek")
