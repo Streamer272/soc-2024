@@ -27,27 +27,32 @@ def analyze(name: str, data: List[np.ndarray]):
     return F, p
 
 
-def plot_box(data, labels, Fs, ps, title, titles):
+def plot_box(data, labels, Fs, ps, title):
     if not graph:
         return
+
+    titles = ["Priemer", "Matematika", "Slovenčina", "Angličtina"]
 
     fig, axs = plt.subplots(2, 2, sharex=True)
     fig.suptitle(title)
     fig.set_size_inches(12, 9)
 
-    for i in range(2):
-        for j in range(2):
-            print(f"{i}x{j} giving {i * 2 + j}")
-            axs[i, j].boxplot(data[i * 2 + j], labels=labels)
-            axs[i, j].set_title(titles[i * 2 + j])
+    for j in range(2):
+        for k in range(2):
+            index = j * 2 + k
+            axs[j, k].boxplot(data[index], labels=labels)
+            axs[j, k].set_title(titles[index])
 
-            F = round(Fs[i * 2 + j], 2)
-            p = round(ps[i * 2 + j], 4)
-            axs[i, j].text(0.01, 0.99, f"F-stat: {F}\np-val: {p}", ha="left", va="top", transform=axs[i, j].transAxes,
+            if index > 0:
+                axs[j, k].set_yticks(np.arange(1, 6, 1))
+
+            F = round(Fs[index], 2)
+            p = round(ps[index], 4)
+            axs[j, k].text(0.01, 0.99, f"F-stat: {F}\np-val: {p}", ha="left", va="top", transform=axs[j, k].transAxes,
                            fontweight="bold")
 
-            avgs = np.array([a.mean() for a in data[i * 2 + j]])
-            print(avgs)
+            medians = np.array([np.median(a) for a in data[j * 2 + k]])
+            print(medians)  # TODO: add to graph
 
     fig.tight_layout()
     fig.show()

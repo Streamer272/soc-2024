@@ -24,6 +24,5 @@ data_math, F_math, p_math = analyze_sex("math", dataset[:, 3])
 data_slovak, F_slovak, p_slovak = analyze_sex("slovak", dataset[:, 4])
 data_english, F_english, p_english = analyze_sex("english", dataset[:, 5])
 
-plot_box([data_gpa, data_math, data_slovak, data_english], ["Female", "Male"],
-         [F_gpa, F_math, F_slovak, F_english], [p_gpa, p_math, p_slovak, p_english],
-         "Pohlavie", ["Priemer", "Matematika", "Slovenčina", "Angličtina"])
+plot_box([data_gpa, data_math, data_slovak, data_english], ["Ženy", "Muži"],
+         [F_gpa, F_math, F_slovak, F_english], [p_gpa, p_math, p_slovak, p_english], "Pohlavie")
