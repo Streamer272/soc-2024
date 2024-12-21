@@ -18,21 +18,18 @@ def percent(fraction: float) -> str:
     return f"{floor(fraction * 10_000) / 100:.2f}%"
 
 
-def plot_bar(x, y, title, xlabel, fix_x_labels=False):
-    plt.figure(figsize=(8, 6))
-    plt.bar(x, np.array(y) * 100)
-    plt.ylim(0, 100)
-    for i in range(len(x)):
-        plt.text(i - 0.05 * len(x), y[i] * 100 + 1, percent(y[i]))
-    plt.title(title)
-    plt.ylabel("Percentá", fontweight="bold")
-    plt.xlabel(xlabel, labelpad=5, fontweight="bold")
+def plot_pie(data, labels, title, explode=None):
+    i = 0
+    while i < len(data):
+        if data[i] == 0:
+            data.pop(i)
+            labels.pop(i)
+        else:
+            i += 1
 
-    if fix_x_labels:
-        _, labels = plt.xticks()
-        for i in range(len(labels)):
-            labels[i].set_y(-(i % 2) * 0.04)
-            print(labels[i])
+    plt.figure(figsize=(8, 6))
+    plt.pie(np.array(data), labels=labels, autopct=lambda pct: percent(pct / 100), explode=explode)
+    plt.title(title)
 
     plt.tight_layout()
     plt.show()
@@ -55,11 +52,10 @@ print(f"5st year: {percent(grade_dist[4])}")
 print("")
 
 if graph:
-    plot_bar(
-        ["Prvý ročník", "Druhý ročník", "Tretí ročník", "Štvrtý ročník", "Piaty ročník"],
+    plot_pie(
         grade_dist,
+        ["Prvý ročník", "Druhý ročník", "Tretí ročník", "Štvrtý ročník", "Piaty ročník"],
         "Distribúcia ročníkov",
-        "Ročník"
     )
 
 sex = dataset[:, 1]
@@ -73,7 +69,7 @@ print(f"Male: {percent(sex_dist[1])}")
 print("")
 
 if graph:
-    plot_bar(["Ženy", "Muži"], sex_dist, "Distribúcia pohlavia", "Pohlavie")
+    plot_pie(sex_dist, ["Ženy", "Muži"], "Distribúcia pohlavia")
 
 print("--- GPA ---")
 print("n/a")
@@ -97,7 +93,7 @@ print(f"5: {percent(math_dist[4])}")
 print("")
 
 if graph:
-    plot_bar(["1", "2", "3", "4", "5"], math_dist, "Distribúcia známok z matematiky", "Známka")
+    plot_pie(math_dist, ["1", "2", "3", "4", "5"], "Distribúcia známok z matematiky")
 
 slovak = dataset[:, 4]
 slovak_dist = [
@@ -116,7 +112,7 @@ print(f"5: {percent(slovak_dist[4])}")
 print("")
 
 if graph:
-    plot_bar(["1", "2", "3", "4", "5"], slovak_dist, "Distribúcia známok zo slovenčiny", "Známka")
+    plot_pie(slovak_dist, ["1", "2", "3", "4", "5"], "Distribúcia známok zo slovenčiny", (0, 0, 0, 0.25, 0.5))
 
 english = dataset[:, 5]
 english_dist = [
@@ -135,7 +131,7 @@ print(f"5: {percent(english_dist[4])}")
 print("")
 
 if graph:
-    plot_bar(["1", "2", "3", "4", "5"], english_dist, "Distribúcia známok z angličtiny", "Známka")
+    plot_pie(english_dist, ["1", "2", "3", "4", "5"], "Distribúcia známok z angličtiny")
 
 ses = dataset[:, 6]
 ses_dist = [
@@ -150,8 +146,7 @@ print(f"Upper: {percent(ses_dist[2])}")
 print("")
 
 if graph:
-    plot_bar(["Nižšia trieda", "Stredná trieda", "Vyššia trieda"], ses_dist, "Distribúcia socio-ekonomických tried",
-             "Socio-ekonomická trieda")
+    plot_pie(ses_dist, ["Nižšia trieda", "Stredná trieda", "Vyššia trieda"], "Distribúcia socio-ekonomických tried")
 
 occupation = dataset[:, 7]
 occupation_dist = [
@@ -172,8 +167,9 @@ print(f"none                   : {percent(occupation_dist[5])}")
 print("")
 
 if graph:
-    plot_bar(["Práca 10 a viac hodín týždenne", "Práca menej ako 10 hodín týždenne", "Šport", "Hudba", "Niečo iné",
-              "Žiadne"], occupation_dist, "Distribúcia práce a aktivít", "Práca alebo aktivita", True)
+    plot_pie(occupation_dist,
+             ["Práca 10 a viac hodín týždenne", "Práca menej ako 10 hodín týždenne", "Šport", "Hudba", "Niečo iné",
+              "Žiadne"], "Distribúcia práce a aktivít")
 
 living = dataset[:, 8]
 living_dist = [
@@ -192,8 +188,9 @@ print(f"other             : {percent(living_dist[4])}")
 print("")
 
 if graph:
-    plot_bar(["S rodinou", "S rodinným príslušníkom/ou", "Sám/a alebo so spolubývajúcim/ou", "Intrák", "Iné"],
-             living_dist, "Distribúcia životných situácií", "Životná situácia", True)
+    plot_pie(living_dist,
+             ["S rodinou", "S rodinným príslušníkom/ou", "Sám/a alebo so spolubývajúcim/ou", "Intrák", "Iné"],
+             "Distribúcia životných situácií")
 
 commute = dataset[:, 9]
 commute_dist = [
@@ -212,8 +209,9 @@ print(f"> 1h  : {percent(commute_dist[4])}")
 print("")
 
 if graph:
-    plot_bar(["Intrák", "Menej ako 15 minút", "Menej ako 30 minút", "Menej ako hodinu", "Viac ako hodinu"],
-             commute_dist, "Distribúcia dochádzania", "Dochádzanie", True)
+    plot_pie(commute_dist,
+             ["Intrák", "Menej ako 15 minút", "Menej ako 30 minút", "Menej ako hodinu", "Viac ako hodinu"],
+             "Distribúcia dochádzania")
 
 sleep = dataset[:, 10]
 sleep_dist = [
@@ -228,7 +226,7 @@ print(f"long sleepers  : {percent(sleep_dist[2])}")
 print("")
 
 if graph:
-    plot_bar(["6 hodín a menej", "7 až 8 hodín", "9 a viac hodín"], sleep_dist, "Distribúcia spánku", "Dĺžka spánku")
+    plot_pie(sleep_dist, ["6 hodín a menej", "7 až 8 hodín", "9 a viac hodín"], "Distribúcia spánku")
 
 print("--- ABSENCE ---")
 print("n/a")
