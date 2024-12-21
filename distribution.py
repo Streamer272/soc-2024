@@ -18,14 +18,23 @@ def percent(fraction: float) -> str:
     return f"{floor(fraction * 10_000) / 100:.2f}%"
 
 
-def plot_bar(x, y, title, xlabel):
+def plot_bar(x, y, title, xlabel, fix_x_labels=False):
+    plt.figure(figsize=(8, 6))
     plt.bar(x, np.array(y) * 100)
     plt.ylim(0, 100)
     for i in range(len(x)):
         plt.text(i - 0.05 * len(x), y[i] * 100 + 1, percent(y[i]))
     plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel("Percentá")
+    plt.ylabel("Percentá", fontweight="bold")
+    plt.xlabel(xlabel, labelpad=5, fontweight="bold")
+
+    if fix_x_labels:
+        _, labels = plt.xticks()
+        for i in range(len(labels)):
+            labels[i].set_y(-(i % 2) * 0.04)
+            print(labels[i])
+
+    plt.tight_layout()
     plt.show()
 
 
@@ -164,7 +173,7 @@ print("")
 
 if graph:
     plot_bar(["Práca 10 a viac hodín týždenne", "Práca menej ako 10 hodín týždenne", "Šport", "Hudba", "Niečo iné",
-              "Žiadne"], occupation_dist, "Distribúcia práce a aktivít", "Práca alebo aktivita")
+              "Žiadne"], occupation_dist, "Distribúcia práce a aktivít", "Práca alebo aktivita", True)
 
 living = dataset[:, 8]
 living_dist = [
@@ -184,7 +193,7 @@ print("")
 
 if graph:
     plot_bar(["S rodinou", "S rodinným príslušníkom/ou", "Sám/a alebo so spolubývajúcim/ou", "Intrák", "Iné"],
-             living_dist, "Distribúcia životných situácií", "Životná situácia")
+             living_dist, "Distribúcia životných situácií", "Životná situácia", True)
 
 commute = dataset[:, 9]
 commute_dist = [
@@ -204,8 +213,7 @@ print("")
 
 if graph:
     plot_bar(["Intrák", "Menej ako 15 minút", "Menej ako 30 minút", "Menej ako hodinu", "Viac ako hodinu"],
-             commute_dist,
-             "Distribúcia dochádzania", "Dochádzanie")
+             commute_dist, "Distribúcia dochádzania", "Dochádzanie", True)
 
 sleep = dataset[:, 10]
 sleep_dist = [
