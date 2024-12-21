@@ -1,23 +1,51 @@
 import numpy as np
+import argparse
+import matplotlib.pyplot as plt
 from math import floor
+
+parser = argparse.ArgumentParser(
+    prog="distribution"
+)
+parser.add_argument("-g", "--graph", action="store_true", default=False, help="Display graphs")
+args = parser.parse_args()
+graph = args.graph
 
 dataset = np.load("clean.npy")
 print(f"dataset shape: {dataset.shape}; analyzing distribution\n")
 
 
-def percent(numerator: int, denominator: int) -> str:
-    fraction = numerator / denominator
+def percent(fraction: float) -> str:
     return f"{floor(fraction * 10_000) / 100:.2f}%"
 
 
 grade = dataset[:, 0]
+grade_dist = [
+    len(grade[grade == 1]) / len(grade),
+    len(grade[grade == 2]) / len(grade),
+    len(grade[grade == 3]) / len(grade),
+    len(grade[grade == 4]) / len(grade),
+    len(grade[grade == 5]) / len(grade)
+]
 print("--- GRADE ---")
-print(f"1st year: {percent(len(grade[grade == 1]), len(grade))}")
-print(f"2st year: {percent(len(grade[grade == 2]), len(grade))}")
-print(f"3st year: {percent(len(grade[grade == 3]), len(grade))}")
-print(f"4st year: {percent(len(grade[grade == 4]), len(grade))}")
-print(f"5st year: {percent(len(grade[grade == 5]), len(grade))}")
+print(f"1st year: {percent(grade_dist[0])}")
+print(f"2st year: {percent(grade_dist[1])}")
+print(f"3st year: {percent(grade_dist[2])}")
+print(f"4st year: {percent(grade_dist[3])}")
+print(f"5st year: {percent(grade_dist[4])}")
 print("")
+
+if graph:
+    plt.bar(["Prvý ročník", "Druhý ročník", "Tretí ročník", "Štvrtý ročník", "Piaty ročník"],
+            np.array(grade_dist) * 100)
+    plt.ylim(0, 100)
+    for i in range(5):
+        plt.text(i - 0.25, grade_dist[i] * 100 + 1, percent(grade_dist[i]))
+    plt.title("Distribúcia ročníkov")
+    plt.xlabel("Ročník")
+    plt.ylabel("Percentá")
+    plt.show()
+
+exit(0)
 
 sex = dataset[:, 1]
 print("--- SEX ---")
