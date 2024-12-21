@@ -1,6 +1,6 @@
 import numpy as np
 
-from analyze import analyze, plot_box
+from analyze import analyze, plot_violin
 
 dataset = np.load("clean.npy")
 print(f"dataset shape: {dataset.shape}; analyzing column 1 (sex)")
@@ -24,5 +24,5 @@ data_math, F_math, p_math = analyze_sex("math", dataset[:, 3])
 data_slovak, F_slovak, p_slovak = analyze_sex("slovak", dataset[:, 4])
 data_english, F_english, p_english = analyze_sex("english", dataset[:, 5])
 
-plot_box([data_gpa, data_math, data_slovak, data_english], ["Ženy", "Muži"],
-         [F_gpa, F_math, F_slovak, F_english], [p_gpa, p_math, p_slovak, p_english], "Pohlavie")
+plot_violin([data_gpa, data_math, data_slovak, data_english], ["Ženy", "Muži"],
+            [F_gpa, F_math, F_slovak, F_english], [p_gpa, p_math, p_slovak, p_english], "Pohlavie")

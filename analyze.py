@@ -27,7 +27,7 @@ def analyze(name: str, data: List[np.ndarray]):
     return F, p
 
 
-def plot_box(data, labels, Fs, ps, title):
+def plot_violin(data, labels, Fs, ps, title):
     if not graph:
         return
 
@@ -52,8 +52,10 @@ def plot_box(data, labels, Fs, ps, title):
             axs[j, k].text(0.01, 0.99, f"F-stat: {F}\np-val: {p}", ha="left", va="top", transform=axs[j, k].transAxes,
                            fontweight="bold")
 
-            means = np.array([a.mean() for a in data[j * 2 + k]])
-            print(means)  # TODO: add to graph
+            means = list([a.mean() for a in data[j * 2 + k]])
+            for l in range(len(means)):
+                mean = round(means[l], 2)
+                axs[j, k].text(l + 1.05, mean + 0.05, f"{mean}")
 
     fig.tight_layout()
     fig.show()
