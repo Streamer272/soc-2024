@@ -31,9 +31,10 @@ def plot_violin(data, labels, Fs, ps, title):
     if not graph:
         return
 
-    titles = ["Priemer", "Matematika", "Slovenčina", "Angličtina"]
+    grade_names = ["Priemer", "Matematika", "Slovenčina", "Angličtina"]
+    grade_name_labels = ["Priemer známok", "Známka z matematiky", "Známka zo slovenčiny", "Známka z angličtiny"]
 
-    fig, axs = plt.subplots(2, 2, sharex=True)
+    fig, axs = plt.subplots(2, 2)
     fig.suptitle(title)
     fig.set_size_inches(12, 9)
 
@@ -43,7 +44,9 @@ def plot_violin(data, labels, Fs, ps, title):
             step = 1 if index > 0 else 0.5
 
             axs[j, k].violinplot(data[index], showmeans=True)
-            axs[j, k].set_title(titles[index])
+            axs[j, k].set_title(grade_names[index])
+            axs[j, k].set_xlabel(title, fontweight="bold")
+            axs[j, k].set_ylabel(grade_name_labels[index], fontweight="bold")
             axs[j, k].set_xticks(np.arange(1, len(labels) + 1), labels=labels)
             axs[j, k].set_yticks(np.arange(1, 5.01, step))
 
