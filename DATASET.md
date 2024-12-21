@@ -15,7 +15,7 @@ The cleaned dataset will have the following structure:
 | 8     | Living     | enum  | [0-4] |
 | 9     | Commute    | enum  | [0-4] |
 | 10    | Sleep      | enum  | [0-2] |
-| 11    | Absence    | int   | -     |
+| 11    | Absence    | int   | [0-∞] |
 
 It will be saved in a `.npy` file (numpy format)
 
