@@ -52,10 +52,10 @@ def plot_violin(data, labels, Fs, ps, title):
 
             F = round(Fs[index], 2)
             p = round(ps[index], 4)
-            axs[j, k].text(0.01, 0.99, f"F-stat: {F}\np-val: {p}", ha="left", va="top", transform=axs[j, k].transAxes,
+            axs[j, k].text(0.01, 0.99, f"F-stat: {F:.2f}\np-val: {p:.4f}", ha="left", va="top", transform=axs[j, k].transAxes,
                            fontweight="bold")
 
-            means = list([a.mean() for a in data[j * 2 + k]])
+            means = list([a.mean() for a in data[index]])
             for l in range(len(means)):
                 mean = round(means[l], 2)
                 axs[j, k].text(l + 1.05, mean + 0.05, f"{mean}")
