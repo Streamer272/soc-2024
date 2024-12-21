@@ -40,19 +40,20 @@ def plot_box(data, labels, Fs, ps, title):
     for j in range(2):
         for k in range(2):
             index = j * 2 + k
-            axs[j, k].boxplot(data[index], labels=labels)
-            axs[j, k].set_title(titles[index])
+            step = 1 if index > 0 else 0.5
 
-            if index > 0:
-                axs[j, k].set_yticks(np.arange(1, 6, 1))
+            axs[j, k].violinplot(data[index], showmeans=True)
+            axs[j, k].set_title(titles[index])
+            axs[j, k].set_xticks(np.arange(1, len(labels) + 1), labels=labels)
+            axs[j, k].set_yticks(np.arange(1, 5.01, step))
 
             F = round(Fs[index], 2)
             p = round(ps[index], 4)
             axs[j, k].text(0.01, 0.99, f"F-stat: {F}\np-val: {p}", ha="left", va="top", transform=axs[j, k].transAxes,
                            fontweight="bold")
 
-            medians = np.array([np.median(a) for a in data[j * 2 + k]])
-            print(medians)  # TODO: add to graph
+            means = np.array([a.mean() for a in data[j * 2 + k]])
+            print(means)  # TODO: add to graph
 
     fig.tight_layout()
     fig.show()
