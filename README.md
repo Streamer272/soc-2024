@@ -16,3 +16,7 @@ Thanks so much for participating in the survey, you can check out the scripts an
 where I explain what I did in a slightly more friendly way
 
 And if you're interested in the dataset, no I'm not publishing it, sorry (mom said no)
+
+### Dataset
+
+The documentation for the dataset structure can be found [here](https://github.com/Streamer272/soc-2024/blob/main/DATASET.md)

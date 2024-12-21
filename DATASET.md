@@ -22,8 +22,8 @@ It will be saved in a `.npy` file (numpy format)
 ### Sex
 
 ```
-0 - zena
-1 - muz
+0 - female
+1 - male
 ```
 
 ### SES
