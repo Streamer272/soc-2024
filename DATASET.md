@@ -17,6 +17,8 @@ The cleaned dataset will have the following structure:
 | 10    | Sleep      | enum  | [0-2] |
 | 11    | Absence    | int   | -     |
 
+It will be saved in a `.npy` file (numpy format)
+
 ### Sex
 
 ```
