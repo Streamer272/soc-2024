@@ -5,10 +5,11 @@
 venv/
 __pycache__/
 
+results/
+
 *.zip
 *.csv
 *.npy
 
 *.jasp
-results.txt
 *.pth
