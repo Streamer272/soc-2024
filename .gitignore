@@ -13,3 +13,6 @@ results/
 
 *.jasp
 *.pth
+
+*.tar.gz
+*.zip
