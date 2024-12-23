@@ -40,7 +40,7 @@ def plot_pie(data, labels, title, explode=None):
 
     plt.tight_layout()
     if save:
-        plt.savefig(f"Figure_{graph_index}.png")
+        plt.savefig(f"results/Figure_{graph_index}.png")
         graph_index += 1
     else:
         plt.show()
@@ -59,7 +59,7 @@ def plot_hist(data, title, xlabel, ylabel):
 
     plt.tight_layout()
     if save:
-        plt.savefig(f"Figure_{graph_index}.png")
+        plt.savefig(f"results/Figure_{graph_index}.png")
         graph_index += 1
     else:
         plt.show()

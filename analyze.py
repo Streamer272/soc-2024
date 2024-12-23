@@ -3,6 +3,7 @@ import argparse
 
 import numpy as np
 import scipy.stats as stats
+import scikit_posthocs as sp
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
@@ -38,8 +39,10 @@ def analyze(name: str, data: List[np.ndarray]):
         return F, p
 
     print("statistically significant")
-    tukey_results = stats.tukey_hsd(*filtered_data)
-    print(tukey_results)
+    #tukey_results = stats.tukey_hsd(*filtered_data)
+    #print(tukey_results)
+    ps = sp.posthoc_dunn(filtered_data, val_col='Values', group_col='Group', p_adjust='bonferroni')
+    print(ps)
 
     return F, p
 
