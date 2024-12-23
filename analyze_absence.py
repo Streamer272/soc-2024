@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-g", "--graph", action="store_true", default=False, help="Plot graph")
+parser.add_argument("-s", "--save", default="", help="Graph save location")
 args = parser.parse_args()
 graph = args.graph
+save = args.save
 
 dataset = np.load("clean.npy")
 print(f"dataset shape: {dataset.shape}; analyzing column 11 (absence)")
@@ -78,5 +80,7 @@ for j in range(2):
                 axs[j, k].text(l + 1.02, mean + 5, f"{mean}")
 
 fig.tight_layout()
-fig.show()
-plt.show()
+if save != "":
+    plt.savefig(save)
+else:
+    plt.show()

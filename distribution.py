@@ -7,8 +7,11 @@ parser = argparse.ArgumentParser(
     prog="distribution"
 )
 parser.add_argument("-g", "--graph", action="store_true", default=False, help="Display graphs")
+parser.add_argument("-s", "--save", action="store_true", default=False, help="Save graphs")
 args = parser.parse_args()
 graph = args.graph
+save = args.save
+graph_index = 1
 
 dataset = np.load("clean.npy")
 print(f"dataset shape: {dataset.shape}; analyzing distribution\n")
@@ -19,6 +22,10 @@ def percent(fraction: float) -> str:
 
 
 def plot_pie(data, labels, title, explode=None):
+    global graph_index
+    if not graph:
+        return
+
     i = 0
     while i < len(data):
         if data[i] == 0:
@@ -32,10 +39,18 @@ def plot_pie(data, labels, title, explode=None):
     plt.title(title)
 
     plt.tight_layout()
-    plt.show()
+    if save:
+        plt.savefig(f"Figure_{graph_index}.png")
+        graph_index += 1
+    else:
+        plt.show()
 
 
 def plot_hist(data, title, xlabel, ylabel):
+    global graph_index
+    if not graph:
+        return
+
     plt.figure(figsize=(8, 6))
     plt.hist(data, 25, edgecolor="black")
     plt.title(title)
@@ -43,7 +58,11 @@ def plot_hist(data, title, xlabel, ylabel):
     plt.ylabel(ylabel)
 
     plt.tight_layout()
-    plt.show()
+    if save:
+        plt.savefig(f"Figure_{graph_index}.png")
+        graph_index += 1
+    else:
+        plt.show()
 
 
 grade = dataset[:, 0]
@@ -62,12 +81,11 @@ print(f"4st year: {percent(grade_dist[3])}")
 print(f"5st year: {percent(grade_dist[4])}")
 print("")
 
-if graph:
-    plot_pie(
-        grade_dist,
-        ["Prvý ročník", "Druhý ročník", "Tretí ročník", "Štvrtý ročník", "Piaty ročník"],
-        "Distribúcia ročníkov",
-    )
+plot_pie(
+    grade_dist,
+    ["Prvý ročník", "Druhý ročník", "Tretí ročník", "Štvrtý ročník", "Piaty ročník"],
+    "Distribúcia ročníkov",
+)
 
 sex = dataset[:, 1]
 sex_dist = [
@@ -79,15 +97,13 @@ print(f"Female: {percent(sex_dist[0])}")
 print(f"Male: {percent(sex_dist[1])}")
 print("")
 
-if graph:
-    plot_pie(sex_dist, ["Ženy", "Muži"], "Distribúcia pohlavia")
+plot_pie(sex_dist, ["Ženy", "Muži"], "Distribúcia pohlavia")
 
 print("--- GPA ---")
 print("n/a")
 print("")
 
-if graph:
-    plot_hist(dataset[:, 2], "Distribúcia piemernu známok", "Piemerná známka", "Počet študentov/tiek")
+plot_hist(dataset[:, 2], "Distribúcia piemernu známok", "Piemerná známka", "Počet študentov/tiek")
 
 math = dataset[:, 3]
 math_dist = [
@@ -105,8 +121,7 @@ print(f"4: {percent(math_dist[3])}")
 print(f"5: {percent(math_dist[4])}")
 print("")
 
-if graph:
-    plot_pie(math_dist, ["1", "2", "3", "4", "5"], "Distribúcia známok z matematiky")
+plot_pie(math_dist, ["1", "2", "3", "4", "5"], "Distribúcia známok z matematiky")
 
 slovak = dataset[:, 4]
 slovak_dist = [
@@ -124,8 +139,7 @@ print(f"4: {percent(slovak_dist[3])}")
 print(f"5: {percent(slovak_dist[4])}")
 print("")
 
-if graph:
-    plot_pie(slovak_dist, ["1", "2", "3", "4", "5"], "Distribúcia známok zo slovenčiny", (0, 0, 0, 0.25, 0.5))
+plot_pie(slovak_dist, ["1", "2", "3", "4", "5"], "Distribúcia známok zo slovenčiny", (0, 0, 0, 0.25, 0.5))
 
 english = dataset[:, 5]
 english_dist = [
@@ -143,8 +157,7 @@ print(f"4: {percent(english_dist[3])}")
 print(f"5: {percent(english_dist[4])}")
 print("")
 
-if graph:
-    plot_pie(english_dist, ["1", "2", "3", "4", "5"], "Distribúcia známok z angličtiny")
+plot_pie(english_dist, ["1", "2", "3", "4", "5"], "Distribúcia známok z angličtiny")
 
 ses = dataset[:, 6]
 ses_dist = [
@@ -158,8 +171,7 @@ print(f"Middle: {percent(ses_dist[1])}")
 print(f"Upper: {percent(ses_dist[2])}")
 print("")
 
-if graph:
-    plot_pie(ses_dist, ["Nižšia trieda", "Stredná trieda", "Vyššia trieda"], "Distribúcia socio-ekonomických tried")
+plot_pie(ses_dist, ["Nižšia trieda", "Stredná trieda", "Vyššia trieda"], "Distribúcia socio-ekonomických tried")
 
 occupation = dataset[:, 7]
 occupation_dist = [
@@ -179,10 +191,9 @@ print(f"other                  : {percent(occupation_dist[4])}")
 print(f"none                   : {percent(occupation_dist[5])}")
 print("")
 
-if graph:
-    plot_pie(occupation_dist,
-             ["Práca 10 a viac hodín týždenne", "Práca menej ako 10 hodín týždenne", "Šport", "Hudba", "Niečo iné",
-              "Žiadne"], "Distribúcia práce a aktivít")
+plot_pie(occupation_dist,
+         ["Práca 10 a viac hodín týždenne", "Práca menej ako 10 hodín týždenne", "Šport", "Hudba", "Niečo iné",
+          "Žiadne"], "Distribúcia práce a aktivít")
 
 living = dataset[:, 8]
 living_dist = [
@@ -200,10 +211,9 @@ print(f"dorms             : {percent(living_dist[3])}")
 print(f"other             : {percent(living_dist[4])}")
 print("")
 
-if graph:
-    plot_pie(living_dist,
-             ["S rodinou", "S rodinným príslušníkom/ou", "Sám/a alebo so spolubývajúcim/ou", "Intrák", "Iné"],
-             "Distribúcia životných situácií")
+plot_pie(living_dist,
+         ["S rodinou", "S rodinným príslušníkom/ou", "Sám/a alebo so spolubývajúcim/ou", "Intrák", "Iné"],
+         "Distribúcia životných situácií")
 
 commute = dataset[:, 9]
 commute_dist = [
@@ -221,10 +231,9 @@ print(f"<= 1h : {percent(commute_dist[3])}")
 print(f"> 1h  : {percent(commute_dist[4])}")
 print("")
 
-if graph:
-    plot_pie(commute_dist,
-             ["Intrák", "Menej ako 15 minút", "Menej ako 30 minút", "Menej ako hodinu", "Viac ako hodinu"],
-             "Distribúcia dochádzania")
+plot_pie(commute_dist,
+         ["Intrák", "Menej ako 15 minút", "Menej ako 30 minút", "Menej ako hodinu", "Viac ako hodinu"],
+         "Distribúcia dochádzania")
 
 sleep = dataset[:, 10]
 sleep_dist = [
@@ -238,12 +247,10 @@ print(f"medium sleepers: {percent(sleep_dist[1])}")
 print(f"long sleepers  : {percent(sleep_dist[2])}")
 print("")
 
-if graph:
-    plot_pie(sleep_dist, ["6 hodín a menej", "7 až 8 hodín", "9 a viac hodín"], "Distribúcia spánku")
+plot_pie(sleep_dist, ["6 hodín a menej", "7 až 8 hodín", "9 a viac hodín"], "Distribúcia spánku")
 
 print("--- ABSENCE ---")
 print("n/a")
 print("")
 
-if graph:
-    plot_hist(dataset[:, 11], "Distribúcia absencií", "Počet neprítomných hodín", "Počet študentov/tiek")
+plot_hist(dataset[:, 11], "Distribúcia absencií", "Počet neprítomných hodín", "Počet študentov/tiek")

@@ -78,7 +78,6 @@ def plot_violin(data, labels, Fs, ps, title):
                 axs[j, k].text(l + 1.05, median + 0.05, f"{median}")
 
     fig.tight_layout()
-    fig.show()
     if save != "":
         plt.savefig(save)
     else:

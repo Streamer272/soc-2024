@@ -1,0 +1,2 @@
+make analyze:
+	./analyze.sh
