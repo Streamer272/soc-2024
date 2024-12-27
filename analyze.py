@@ -15,6 +15,9 @@ args = parser.parse_args()
 graph = args.graph
 save = args.save
 
+colors = ["lightblue", "lightgreen", "lightcoral"]
+edge_colors = ["blue", "green", "red"]
+
 
 # source: mostly ChatGPT (ain't no way i'm writing this shit myself)
 def analyze(name: str, data: List[np.ndarray]):
@@ -81,12 +84,12 @@ def analyze(name: str, data: List[np.ndarray]):
         p_value = posthoc_results.loc[idx1 + 1, idx2 + 1]
 
         results.append({
-            "Group 1": group1,
-            "Group 2": group2,
-            "Effect Size": f"{effect_size:.4f}",
-            "Mean Difference": f"{mean_diff:.4f}",
-            "Median Difference": f"{median_diff:.4f}",
-            "Post-Hoc p-value": f"{p_value:.4f}"
+            "Skupina 1": group1,
+            "Skupina 2": group2,
+            "Veľkosť účinku": f"{effect_size:.4f}",
+            "Rozdiel priemerov": f"{mean_diff:.4f}",
+            "Rozdiel mediánov": f"{median_diff:.4f}",
+            "Post-Hoc p-hodnota": f"{p_value:.4f}"
         })
 
     results_df = pd.DataFrame(results, dtype="object")
@@ -113,18 +116,27 @@ def plot_violin(data, labels, Fs, ps, title):
             index = j * 2 + k
             step = 1 if index > 0 else 0.5
 
-            axs[j, k].violinplot(data[index], showmedians=True, showmeans=True)
+            parts = axs[j, k].violinplot(data[index], showmedians=True, showmeans=True)
             axs[j, k].set_title(grade_names[index])
             axs[j, k].set_xlabel(title, fontweight="bold")
             axs[j, k].set_ylabel(grade_name_labels[index], fontweight="bold")
             axs[j, k].set_xticks(np.arange(1, len(labels) + 1), labels=labels)
             axs[j, k].set_yticks(np.arange(1, 5.01, step))
 
+            parts["cmeans"].set_color("red")
+            parts["cmedians"].set_color("green")
+
+            for i, part in enumerate(parts["bodies"]):
+                part.set_facecolor(colors[i % len(colors)])
+                part.set_edgecolor(edge_colors[i % len(edge_colors)])
+
             F = round(Fs[index], 2)
             p = round(ps[index], 4)
             axs[j, k].text(0.01, 0.99, f"F-stat: {F:.2f}\np-val: {p:.4f}", ha="left", va="top",
                            transform=axs[j, k].transAxes,
                            fontweight="bold")
+            axs[j, k].text(0.99, 0.99, f"Na ľavo - priemer (červená)\nNa pravo - medián (zelená)", ha="right", va="top",
+                           transform=axs[j, k].transAxes)
 
             medians = list([np.median(a) for a in data[index]])
             means = list([a.mean() for a in data[index]])
@@ -132,8 +144,8 @@ def plot_violin(data, labels, Fs, ps, title):
                 median = round(medians[l], 2)
                 mean = round(means[l], 2)
                 # left - mean, right - median
-                axs[j, k].text(l + 1.13, median - 0.05, f"{median}")
-                axs[j, k].text(l + 0.90 - len(labels) * 0.065, mean - 0.05, f"{mean}")
+                axs[j, k].text(l + 1.13, median - 0.05, f"{median}", color="green")
+                axs[j, k].text(l + 0.90 - len(labels) * 0.065, mean - 0.05, f"{mean}", color="red")
 
     fig.tight_layout()
     if save != "":
