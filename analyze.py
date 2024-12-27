@@ -52,10 +52,7 @@ def analyze(name: str, data: List[np.ndarray]):
     all_ranks = stats.rankdata(all_values)  # Rank all values together
     group_ranks = [all_ranks[start:start + len(group)] for start, group in
                    zip(np.cumsum([0] + [len(g) for g in filtered_data[:-1]]), filtered_data)]
-    posthoc_results = sp.posthoc_dunn(filtered_data, p_adjust='bonferroni')
-    # we don't really need to print this, it's contained in the big ahh table
-    # print("\nPost-Hoc Dunn Test Results (Bonferroni-adjusted p-values):")
-    # print(posthoc_results)
+    posthoc_results = sp.posthoc_conover(filtered_data, p_adjust='bonferroni')
 
     results = []
     total_sample_size = len(all_values)
@@ -120,6 +117,13 @@ def plot_violin(data, labels, Fs, ps, title):
             axs[j, k].set_title(grade_names[index])
             axs[j, k].set_xlabel(title, fontweight="bold")
             axs[j, k].set_ylabel(grade_name_labels[index], fontweight="bold")
+
+            # q1-q3 lines
+            for vec in data[index]:
+                inds = np.arange(1, len(data[index]) + 1)
+                quartile1, median, quartile3 = np.percentile(vec, [25, 50, 75])
+                axs[j, k].vlines(inds, quartile1, quartile3, color="gray", linewidths=3)
+
             axs[j, k].set_xticks(np.arange(1, len(labels) + 1), labels=labels)
             axs[j, k].set_yticks(np.arange(1, 5.01, step))
 
@@ -135,7 +139,10 @@ def plot_violin(data, labels, Fs, ps, title):
             axs[j, k].text(0.01, 0.99, f"F-stat: {F:.2f}\np-val: {p:.4f}", ha="left", va="top",
                            transform=axs[j, k].transAxes,
                            fontweight="bold")
-            axs[j, k].text(0.99, 0.99, f"Na ľavo - priemer (červená)\nNa pravo - medián (zelená)", ha="right", va="top",
+            axs[j, k].text(0.99, 0.99,
+                           f"Na ľavo - priemer (červená)\nNa pravo - medián (zelená)\nSivá - medzi kvartilom 1 a 3",
+                           ha="right",
+                           va="top",
                            transform=axs[j, k].transAxes)
 
             medians = list([np.median(a) for a in data[index]])
