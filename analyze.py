@@ -119,10 +119,14 @@ def plot_violin(data, labels, Fs, ps, title):
             axs[j, k].set_ylabel(grade_name_labels[index], fontweight="bold")
 
             # q1-q3 lines
-            for vec in data[index]:
-                inds = np.arange(1, len(data[index]) + 1)
+            for ind, vec in enumerate(data[index]):
                 quartile1, median, quartile3 = np.percentile(vec, [25, 50, 75])
-                axs[j, k].vlines(inds, quartile1, quartile3, color="gray", linewidths=3)
+                if quartile1 == quartile3:
+                    if quartile1 >= 0.1:
+                        quartile1 -= 0.1
+                    if quartile3 <= max(vec) - 0.1:
+                        quartile3 += 0.1
+                axs[j, k].vlines(ind + 1, quartile1, quartile3, color="gray", linewidths=3)
 
             axs[j, k].set_xticks(np.arange(1, len(labels) + 1), labels=labels)
             axs[j, k].set_yticks(np.arange(1, 5.01, step))
@@ -134,9 +138,9 @@ def plot_violin(data, labels, Fs, ps, title):
                 part.set_facecolor(colors[i % len(colors)])
                 part.set_edgecolor(edge_colors[i % len(edge_colors)])
 
-            F = round(Fs[index], 2)
-            p = round(ps[index], 4)
-            axs[j, k].text(0.01, 0.99, f"F-stat: {F:.2f}\np-val: {p:.4f}", ha="left", va="top",
+            F = Fs[index]
+            p = ps[index]
+            axs[j, k].text(0.01, 0.99, f"F-stat: {F:.4f}\np-val: {p:.4f}", ha="left", va="top",
                            transform=axs[j, k].transAxes,
                            fontweight="bold")
             axs[j, k].text(0.99, 0.99,
@@ -147,12 +151,12 @@ def plot_violin(data, labels, Fs, ps, title):
 
             medians = list([np.median(a) for a in data[index]])
             means = list([a.mean() for a in data[index]])
-            for l in range(len(medians)):
-                median = round(medians[l], 2)
-                mean = round(means[l], 2)
+            for l in range(len(data[index])):
+                median = medians[l]
+                mean = means[l]
                 # left - mean, right - median
-                axs[j, k].text(l + 1.13, median - 0.05, f"{median}", color="green")
-                axs[j, k].text(l + 0.90 - len(labels) * 0.065, mean - 0.05, f"{mean}", color="red")
+                axs[j, k].text(l + 1.13, median - 0.05, f"{median:.2f}", color="green")
+                axs[j, k].text(l + 0.90 - len(labels) * 0.065, mean - 0.05, f"{mean:.2f}", color="red")
 
     fig.tight_layout()
     if save != "":
