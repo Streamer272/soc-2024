@@ -133,7 +133,7 @@ def plot_violin(data, labels, Fs, ps, title):
                 mean = round(means[l], 2)
                 # left - mean, right - median
                 axs[j, k].text(l + 1.13, median - 0.05, f"{median}")
-                axs[j, k].text(l + 0.77, mean - 0.05, f"{mean}")
+                axs[j, k].text(l + 0.90 - len(labels) * 0.065, mean - 0.05, f"{mean}")
 
     fig.tight_layout()
     if save != "":
