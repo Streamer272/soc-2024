@@ -6,6 +6,7 @@ venv/
 __pycache__/
 
 results/
+paper/
 
 *.zip
 *.csv
@@ -14,6 +15,7 @@ results/
 *.jasp
 *.pth
 *.png
+*.drawio
 
 *.tar.gz
 *.zip
