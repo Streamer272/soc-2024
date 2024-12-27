@@ -57,12 +57,13 @@ for j in range(2):
         index = j * 2 + k
         step = 1 if index > 0 else 0.5
 
-        if index == 0:
-            x = dataset[:, 11]  # absence
-            y = dataset[:, 2]  # gpa
+        if not index:
+            x = data[index][0]  # absence
+            y = data[index][1]  # grade
             axs[j, k].scatter(x, y)
             axs[j, k].set_xlabel("Počet vymeškaných hodín")
             axs[j, k].set_ylabel(grade_name_labels[index])
+            axs[j, k].set_yticks(np.arange(1, 6))
 
             # trendline
             z = np.polyfit(x, y, 1)
@@ -70,32 +71,12 @@ for j in range(2):
 
             axs[j, k].plot(x, p(x), color="gray")
         else:
-            current = list([data[index][0][data[index][1] == i + 1] for i in range(5)])  # i wanna kms
-            # data[index][0] = absence
-            # data[index][1] = grade
-            # data[index][0][where this specific grade] -> absences for that sepcific grade
-            # iterate 1 through 5 and plug into ^^
-
-            parts = axs[j, k].violinplot(list([x if len(x) else [0] for x in current]), showmeans=True,
-                                         showmedians=True)
-            axs[j, k].set_xticks(np.arange(1, 6), labels=["1", "2", "3", "4", "5"])
-            axs[j, k].set_xlabel(grade_name_labels[index])
-            axs[j, k].set_ylabel("Počet vymeškaných hodín")
-
-            # q1-q3 lines
-            for ind, vec in enumerate(current):
-                if len(vec) == 0:
-                    continue
-                quartile1, median, quartile3 = np.percentile(vec, [25, 50, 75])
-                print(quartile1, median, quartile3)
-                axs[j, k].vlines(ind + 1, quartile1, quartile3, color="gray", linewidths=3)
-
-            parts["cmeans"].set_color("red")
-            parts["cmedians"].set_color("green")
-
-            for i, part in enumerate(parts["bodies"]):
-                part.set_facecolor(colors[i % len(colors)])
-                part.set_edgecolor(edge_colors[i % len(edge_colors)])
+            by_grade = list([data[index][0][data[index][1] == i + 1] for i in range(5)])
+            # data[index][0] - absences
+            # data[index][1] - grades
+            # data[index][0][specific grade] - absences for that specific grande
+            # loop 1 through 5 plug in ^^
+            axs[j, k].boxplot(by_grade, tick_labels=["1", "2", "3", "4", "5"])
 
         axs[j, k].set_title(grade_names[index])
 
@@ -104,25 +85,6 @@ for j in range(2):
         axs[j, k].text(0.01, 0.99, f"Tau τ: {tau:.4f}\np-val: {p:.4f}", ha="left", va="top",
                        transform=axs[j, k].transAxes,
                        fontweight="bold")
-
-        if index:
-            axs[j, k].text(0.99, 0.99,
-                           f"Na ľavo - priemer (červená)\nNa pravo - medián (zelená)\nSivá - medzi kvartilom 1 a 3",
-                           ha="right",
-                           va="top",
-                           transform=axs[j, k].transAxes)
-
-            current = list([data[index][0][data[index][1] == i + 1] for i in range(5)])  # i wanna kms
-            medians = list([np.median(a) if len(a) else -1 for a in current])
-            means = list([a.mean() if len(a) else -1 for a in current])
-            for l in range(len(current)):
-                median = medians[l]
-                mean = means[l]
-                # left - mean, right - median
-                if median >= 0:
-                    axs[j, k].text(l + 1.14, median - 5, f"{median:.2f}", color="green", ha="left")
-                if mean >= 0:
-                    axs[j, k].text(l + 0.85, mean - 5, f"{mean:.2f}", color="red", ha="right")
 
 fig.tight_layout()
 if save != "":
