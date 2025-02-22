@@ -15,6 +15,8 @@ paper/
 *.jasp
 *.pth
 *.png
+!structure.png
+!example-graph.png
 *.drawio
 
 *.tar.gz
