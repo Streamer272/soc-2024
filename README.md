@@ -2,7 +2,29 @@
 
 Welcome to the technical repository for my 2024/2025 SOC paper,
 this is where I keep all my scripts, scientific tests, algorithms, and graphing programs,
-let me walk you through how it works
+let me walk you through how it works, I've split it into multiple sections:
+
+1. [Tools and libraries](#tools-and-libraries)
+2. [Dataset](#dataset)
+3. [Distribution](#distribution)
+4. [Analysis and scientific tests](#analysis-and-scientific-tests)
+5. [Graphing](#graphing)
+6. [Neural network](#neural-network)
+
+Don't forget to check out the [conclusion](#conclusion) and the [credits](CREDITS.md)
+
+### Tools and libraries
+
+Basically all scripts are written in [python](https://www.python.org/), except for one shell script, and these are the
+libraries that were used: 
+
+- [numpy](https://numpy.org/) - to load and manipulate the data
+- [pandas](https://pandas.pydata.org/) - to construct tables
+- [scipy](https://scipy.org/) - to perform statistical tests
+- [matplotlib](https://matplotlib.org/) - to create and render graphs
+- [pytorch](https://pytorch.org/) - to model and train the neural network
+
+Google Forms provides the data as a `.csv` file, which is converted into a `.npy` (numpy) file
 
 ### Dataset
 
@@ -76,17 +98,38 @@ AI stuff!
 Well, it didn't work in the end because of the abysmal amount of data, but the structure and
 the training process is still here and can be looked at
 
-The script that trains the neural network is [train_nn.py](train_nn.py) (yes, I am very creative, I am aware), it uses
-the [pytorch](https://pytorch.org/) library to do all the math stuff that goes on behind the scenes, but the important
-part is the structure of the neural network, right here:
+The script that trains the neural network is [train_nn.py](train_nn.py) (yes, I am very creative when it comes to
+naming stuff, I am aware), it uses the [pytorch](https://pytorch.org/) library to do all the math stuff that goes on
+behind the scenes, but the important part is the structure of the neural network, right here:
 
 ![structure of a neural network](structure.png)
 
 Of course, we have to use the `.npy` file format to load the data into our program, so how do we convert the `.csv`
 data provided by the Google Forms into a `.npy`?
 The answer lies in [clean.py](clean.py), but I'm not going to go
-into how it all works, it's just cleaning the data
+into how it all works, since the script just cleans the data
 
 The whole training thing is pretty complicated, so if you don't know anything about neural networks, just forget about
 it and attribute it to magic, but if you do, read through [train_nn.py](train_nn.py),
 it's a pretty clean and readable code
+
+## Conclusion
+
+Hopefully you learned something when you read through this README or the various scripts, because that's the main
+reason why I decided to make this repository public, so folks can look at this and learn new stuff
+
+I had a lot of fun on this project, gathering data, writing scripts, conducting scientific tests, and writing the paper,
+it was an unforgettable experience, and even though it was really hard, it was definitely worth it and I would
+definitely do it again, and I recommend you try this sort of thing as well
+
+If you have read this whole README till the end, I thank you, because it took a Saturday afternoon to write that I
+could've spent playing video games, but it was worth it as long as at least one person took a quick glance at it
+
+If you have any questions about the paper, this repository, the technical details and the specific techniques, or even
+if you're thinking about writing a paper yourself, feel free to reach out to me at
+[daniel@svitan.dev](mailto:daniel@svitan.dev) or send me a message on discord (Streamer272), I will gladly answer
+any questions and talk about this project for hours
+
+### License
+
+This project is licensed under the [MIT License](LICENSE)
