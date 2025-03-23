@@ -34,7 +34,7 @@ def plot_pie(data, labels, title, explode=None):
         else:
             i += 1
 
-    plt.figure(figsize=(12, 9))
+    plt.figure(figsize=(8, 6))
     plt.pie(np.array(data), labels=labels, autopct=lambda pct: percent(pct / 100), explode=explode, textprops={"fontsize": 16})
     plt.title(title, fontsize=20)
 
@@ -51,7 +51,7 @@ def plot_hist(data, title, xlabel, ylabel):
     if not graph:
         return
 
-    plt.figure(figsize=(12, 9))
+    plt.figure(figsize=(8, 6))
     plt.hist(data, 25, edgecolor="black")
     plt.title(title, fontsize=20)
     plt.xlabel(xlabel, fontsize=16)
@@ -192,7 +192,7 @@ print(f"none                   : {percent(occupation_dist[5])}")
 print("")
 
 plot_pie(occupation_dist,
-         ["Práca 10 a viac hodín týždenne", "Práca menej ako 10 hodín týždenne", "Šport", "Hudba", "Niečo iné",
+         ["Práca 10 a viac\nhodín týždenne", "Práca menej ako\n10 hodín týždenne", "Šport", "Hudba", "Niečo iné",
           "Žiadne"], "Distribúcia práce a aktivít")
 
 living = dataset[:, 8]
@@ -212,7 +212,7 @@ print(f"other             : {percent(living_dist[4])}")
 print("")
 
 plot_pie(living_dist,
-         ["S rodinou", "S rodinnou príslušní*čkou", "Sám*a alebo so spolubývajúc*ou", "Intrák", "Iné"],
+         ["S rodinou", "\nS rodinnou príslušní*čkou", "Sám*a alebo so\nspolubývajúc*ou", "Intrák", "Iné"],
          "Distribúcia životných situácií")
 
 commute = dataset[:, 9]
