@@ -34,9 +34,9 @@ def plot_pie(data, labels, title, explode=None):
         else:
             i += 1
 
-    plt.figure(figsize=(8, 6))
-    plt.pie(np.array(data), labels=labels, autopct=lambda pct: percent(pct / 100), explode=explode)
-    plt.title(title)
+    plt.figure(figsize=(12, 9))
+    plt.pie(np.array(data), labels=labels, autopct=lambda pct: percent(pct / 100), explode=explode, textprops={"fontsize": 16})
+    plt.title(title, fontsize=20)
 
     plt.tight_layout()
     if save:
@@ -51,11 +51,11 @@ def plot_hist(data, title, xlabel, ylabel):
     if not graph:
         return
 
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(12, 9))
     plt.hist(data, 25, edgecolor="black")
-    plt.title(title)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
+    plt.title(title, fontsize=20)
+    plt.xlabel(xlabel, fontsize=16)
+    plt.ylabel(ylabel, fontsize=16)
 
     plt.tight_layout()
     if save:
@@ -103,7 +103,7 @@ print("--- GPA ---")
 print("n/a")
 print("")
 
-plot_hist(dataset[:, 2], "Distribúcia piemernu známok", "Piemerná známka", "Počet študentov/tiek")
+plot_hist(dataset[:, 2], "Distribúcia piemernu známok", "Piemerná známka", "Počet študent*iek")
 
 math = dataset[:, 3]
 math_dist = [
@@ -212,7 +212,7 @@ print(f"other             : {percent(living_dist[4])}")
 print("")
 
 plot_pie(living_dist,
-         ["S rodinou", "S rodinným príslušníkom/ou", "Sám/a alebo so spolubývajúcim/ou", "Intrák", "Iné"],
+         ["S rodinou", "S rodinnou príslušní*čkou", "Sám*a alebo so spolubývajúc*ou", "Intrák", "Iné"],
          "Distribúcia životných situácií")
 
 commute = dataset[:, 9]
@@ -253,4 +253,4 @@ print("--- ABSENCE ---")
 print("n/a")
 print("")
 
-plot_hist(dataset[:, 11], "Distribúcia absencií", "Počet neprítomných hodín", "Počet študentov/tiek")
+plot_hist(dataset[:, 11], "Distribúcia absencií", "Počet neprítomných hodín", "Počet študent*iek")

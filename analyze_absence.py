@@ -49,7 +49,7 @@ grade_names = ["Priemer", "Matematika", "Slovenčina", "Angličtina"]
 grade_name_labels = ["Priemer známok", "Známka z matematiky", "Známka zo slovenčiny", "Známka z angličtiny"]
 
 fig, axs = plt.subplots(2, 2)
-fig.suptitle("Absencia")
+fig.suptitle("Absencia", fontsize=18)
 fig.set_size_inches(12, 9)
 
 for j in range(2):
@@ -61,8 +61,8 @@ for j in range(2):
             x = data[index][0]  # absence
             y = data[index][1]  # grade
             axs[j, k].scatter(x, y)
-            axs[j, k].set_xlabel("Počet vymeškaných hodín")
-            axs[j, k].set_ylabel(grade_name_labels[index])
+            axs[j, k].set_xlabel("Počet vymeškaných hodín", fontweight="bold", fontsize=14)
+            axs[j, k].set_ylabel(grade_name_labels[index], fontweight="bold", fontsize=14)
             axs[j, k].set_yticks(np.arange(1, 6))
 
             # trendline
@@ -76,15 +76,18 @@ for j in range(2):
             # data[index][1] - grades
             # data[index][0][specific grade] - absences for that specific grande
             # loop 1 through 5 plug in ^^
+            axs[j, k].set_xlabel(grade_name_labels[index], fontweight="bold", fontsize=14)
+            axs[j, k].set_ylabel("Počet vymeškaných hodín", fontweight="bold", fontsize=14)
             axs[j, k].boxplot(by_grade, tick_labels=["1", "2", "3", "4", "5"])
 
-        axs[j, k].set_title(grade_names[index])
+        axs[j, k].set_title(grade_names[index], fontsize=16)
 
         tau = taus[index]
         p = ps[index]
         axs[j, k].text(0.01, 0.99, f"Tau τ: {tau:.4f}\np-val: {p:.4f}", ha="left", va="top",
                        transform=axs[j, k].transAxes,
-                       fontweight="bold")
+                       fontweight="bold",
+                       fontsize=12)
 
 fig.tight_layout()
 if save != "":

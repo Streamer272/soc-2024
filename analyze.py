@@ -105,7 +105,7 @@ def plot_violin(data, labels, Fs, ps, title):
     grade_name_labels = ["Priemer známok", "Známka z matematiky", "Známka zo slovenčiny", "Známka z angličtiny"]
 
     fig, axs = plt.subplots(2, 2)
-    fig.suptitle(title)
+    fig.suptitle(title, fontsize=18)
     fig.set_size_inches(12, 9)
 
     for j in range(2):
@@ -114,9 +114,9 @@ def plot_violin(data, labels, Fs, ps, title):
             step = 1 if index > 0 else 0.5
 
             parts = axs[j, k].violinplot(data[index], showmedians=True, showmeans=True)
-            axs[j, k].set_title(grade_names[index])
-            axs[j, k].set_xlabel(title, fontweight="bold")
-            axs[j, k].set_ylabel(grade_name_labels[index], fontweight="bold")
+            axs[j, k].set_title(grade_names[index], fontsize=16)
+            axs[j, k].set_xlabel(title, fontweight="bold", fontsize=14)
+            axs[j, k].set_ylabel(grade_name_labels[index], fontweight="bold", fontsize=14)
 
             # q1-q3 lines
             for ind, vec in enumerate(data[index]):
@@ -142,12 +142,14 @@ def plot_violin(data, labels, Fs, ps, title):
             p = ps[index]
             axs[j, k].text(0.01, 0.99, f"F-stat: {F:.4f}\np-val: {p:.4f}", ha="left", va="top",
                            transform=axs[j, k].transAxes,
-                           fontweight="bold")
+                           fontweight="bold",
+                           fontsize=12)
             axs[j, k].text(0.99, 0.99,
                            f"Na ľavo - priemer (červená)\nNa pravo - medián (zelená)\nSivá - medzi kvartilom 1 a 3",
                            ha="right",
                            va="top",
-                           transform=axs[j, k].transAxes)
+                           transform=axs[j, k].transAxes,
+                           fontsize=12)
 
             medians = list([np.median(a) for a in data[index]])
             means = list([a.mean() for a in data[index]])
@@ -155,8 +157,8 @@ def plot_violin(data, labels, Fs, ps, title):
                 median = medians[l]
                 mean = means[l]
                 # left - mean, right - median
-                axs[j, k].text(l + 1.13, median - 0.05, f"{median:.2f}", color="green")
-                axs[j, k].text(l + 0.90 - len(labels) * 0.065, mean - 0.05, f"{mean:.2f}", color="red")
+                axs[j, k].text(l + 1.13, median - 0.05, f"{median:.2f}", color="green", fontsize=12, fontweight="bold")
+                axs[j, k].text(l + 0.87 - len(labels) * 0.065, mean - 0.05, f"{mean:.2f}", color="red", fontsize=12, fontweight="bold")
 
     fig.tight_layout()
     if save != "":
