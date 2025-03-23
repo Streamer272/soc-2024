@@ -11,8 +11,10 @@ parser = argparse.ArgumentParser(
     prog="train_nn"
 )
 parser.add_argument("-g", "--graph", action="store_true", default=False, help="Graph losses")
+parser.add_argument("-s", "--save", default="", help="Graph save location")
 args = parser.parse_args()
 graph = args.graph
+save = args.save
 
 
 class NeuralNetwork(nn.Module):
@@ -179,4 +181,7 @@ if graph:
 
     plt.legend()
     plt.tight_layout()
-    plt.show()
+    if save != "":
+        plt.savefig(save)
+    else:
+        plt.show()
