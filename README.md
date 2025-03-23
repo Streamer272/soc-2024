@@ -91,6 +91,8 @@ Quite complicated, right? A ton of data packed into one small image, which could
 It can be overwhelming to look at at first, but once you understand what's going on, it's quite intuitive, anyway,
 the function that does all this is also saved in [analyze.py](analyze.py)
 
+All the graphs are saved in the archives, which you can download, [results.tar.gz](results.tar.gz) and [results.zip](results.zip)
+
 ### Neural network
 
 Ah!
