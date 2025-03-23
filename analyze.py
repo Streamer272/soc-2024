@@ -160,6 +160,9 @@ def plot_violin(data, labels, Fs, ps, title):
                 axs[j, k].text(l + 1.13, median - 0.05, f"{median:.2f}", color="green", fontsize=12, fontweight="bold")
                 axs[j, k].text(l + 0.87 - len(labels) * 0.065, mean - 0.05, f"{mean:.2f}", color="red", fontsize=12, fontweight="bold")
 
+            if p < 0.05:
+                axs[j, k].set_facecolor("#ffff99")
+
     fig.tight_layout()
     if save != "":
         plt.savefig(save)

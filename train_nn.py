@@ -169,13 +169,13 @@ if graph:
     plt.plot(x, train_losses, color="red", label="Strata trénovania")
     plt.plot(x, test_losses, color="blue", label="Strata testovania")
 
-    plt.xlabel("Epocha")
-    plt.ylabel("Strata")
-    plt.title("Priebeh trénovania")
+    plt.xlabel("Epocha", fontweight="bold", fontsize=14)
+    plt.ylabel("Strata", fontweight="bold", fontsize=14)
+    plt.title("Priebeh trénovania", fontsize=20)
 
     plt.text(0.99, 0.99,
              f"Presnosť: {accuracy:.4f}\nPrecíznosť: {precision:.4f}\nOdvolanie: {recall:.4f}\nF1 skóre: {f1:.4f}",
-             ha="right", va="top", transform=plt.gca().transAxes, fontweight="bold")
+             ha="right", va="top", transform=plt.gca().transAxes, fontweight="bold", fontsize=14)
 
     plt.legend()
     plt.tight_layout()

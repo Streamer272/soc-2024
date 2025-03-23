@@ -89,6 +89,9 @@ for j in range(2):
                        fontweight="bold",
                        fontsize=12)
 
+        if p < 0.05:
+            axs[j, k].set_facecolor("#ffff99")
+
 fig.tight_layout()
 if save != "":
     plt.savefig(save)
