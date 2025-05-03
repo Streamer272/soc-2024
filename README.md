@@ -13,6 +13,8 @@ let me walk you through how it works, I've split it into multiple sections:
 
 Don't forget to check out the [conclusion](#conclusion) and the [credits](CREDITS.md)
 
+The actual paper can be found [here](Daniel%20Svitan%20SOC%202025.pdf)
+
 ### Tools and libraries
 
 Basically all scripts are written in [python](https://www.python.org/), except for one shell script, and these are the
